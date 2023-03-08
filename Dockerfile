@@ -5,6 +5,8 @@ WORKDIR /app
 # Copy and build
 COPY ./src /app
 
+RUN git init
+
 # build plugins
 RUN dotnet build /app/Plugins/Authentication.Facebook -c Release
 RUN dotnet build /app/Plugins/Authentication.Google -c Release
