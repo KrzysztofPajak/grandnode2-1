@@ -5,8 +5,8 @@ WORKDIR /app
 # Copy and build
 COPY ./src /app
 
-RUN git init
-RUN git config --get https://github.com/KrzysztofPajak/grandnode2-1
+#RUN git init
+#RUN git config --get https://github.com/KrzysztofPajak/grandnode2-1
 RUN git clone git://github.com/KrzysztofPajak/grandnode2-1.git
 #RUN cd samtools
 
