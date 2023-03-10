@@ -5,10 +5,10 @@ WORKDIR /app
 # Copy and build
 COPY ./src /app
 
-ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
-ARG GIT_BRANCH
-ENV GIT_BRANCH ${GIT_BRANCH}
+#ARG GIT_COMMIT
+#ENV GIT_COMMIT ${GIT_COMMIT}
+#ARG GIT_BRANCH
+#ENV GIT_BRANCH ${GIT_BRANCH}
 
 RUN echo "-------------------------- Commit-------------------------- "
 RUN echo $GIT_COMMIT
