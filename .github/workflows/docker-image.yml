@@ -31,6 +31,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: grandnode/grandnode2:latest
+        tags: kpajak/g2:latest
+        build-args: GIT_COMMIT=${{ steps.commit.outputs.long }}
 
     
