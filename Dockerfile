@@ -1,5 +1,4 @@
 ARG GIT_COMMIT
-ENV GIT_COMMIT ${GIT_COMMIT}
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 LABEL stage=build-env
