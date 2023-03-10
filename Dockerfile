@@ -10,12 +10,11 @@ ARG GIT_COMMIT
 ARG GIT_BRANCH
 #ENV GIT_BRANCH ${GIT_BRANCH}
 
-RUN echo "-------------------------- Commit-------------------------- "
 RUN echo $GIT_COMMIT
 RUN echo $GIT_BRANCH
-RUN echo ${GIT_COMMIT}
-RUN echo $(GIT_BRANCH)
-RUN echo ($GIT_BRANCH)
+
+ARG TARGETPLATFORM
+RUN echo "I'm building for $TARGETPLATFORM"
 
 # build plugins
 #RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
@@ -32,10 +31,10 @@ RUN echo ($GIT_BRANCH)
 #RUN dotnet build /app/Plugins/Tax.FixedRate -c Release /p:SourceRevisionId=$GIT_COMMIT
 #RUN dotnet build /app/Plugins/Widgets.FacebookPixel -c Release /p:SourceRevisionId=$GIT_COMMIT
 #RUN dotnet build /app/Plugins/Widgets.GoogleAnalytics -c Release /p:SourceRevisionId=$GIT_COMMIT
-RUN dotnet build /app/Plugins/Widgets.Slider -c Release /p:SourceRevisionId=${GIT_COMMIT}
+RUN dotnet build /app/Plugins/Widgets.Slider -c Release /p:SourceRevisionId=$GIT_COMMIT
 
 # build Web
-RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release -p:SourceRevisionId=${GIT_COMMIT}
+RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release -p:SourceRevisionId=$GIT_COMMIT
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
