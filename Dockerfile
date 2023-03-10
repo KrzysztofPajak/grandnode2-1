@@ -6,7 +6,7 @@ WORKDIR /app
 COPY ./src /app
 
 # build plugins
-RUN dotnet build /app/Plugins/Authentication.Facebook -c Release
+RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=d6b3d432970c9acbc21ecd22c9f5578892385305
 RUN dotnet build /app/Plugins/Authentication.Google -c Release
 RUN dotnet build /app/Plugins/DiscountRules.Standard -c Release
 RUN dotnet build /app/Plugins/ExchangeRate.McExchange -c Release
