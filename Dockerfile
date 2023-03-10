@@ -5,14 +5,6 @@ WORKDIR /app
 # Copy and build
 COPY ./src /app
 
-RUN git clone https://KrzysztofPajak:${{secrets.SuperSecret}}@github.com:KrzysztofPajak/grandnode2-1.git
-#RUN git init
-#RUN git config --get https://github.com/KrzysztofPajak/grandnode2-1
-#RUN git clone https://github.com/KrzysztofPajak/grandnode2-1.git
-#RUN cd grandnode2-1
-#COPY ./grandnode2-1 /app
-#RUN cd samtools
-
 # build plugins
 RUN dotnet build /app/Plugins/Authentication.Facebook -c Release
 RUN dotnet build /app/Plugins/Authentication.Google -c Release
