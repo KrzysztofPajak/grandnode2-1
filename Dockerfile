@@ -6,15 +6,10 @@ WORKDIR /app
 COPY ./src /app
 
 ARG GIT_COMMIT
-#ENV GIT_COMMIT ${GIT_COMMIT}
 ARG GIT_BRANCH
-#ENV GIT_BRANCH ${GIT_BRANCH}
 
 RUN echo $GIT_COMMIT
 RUN echo $GIT_BRANCH
-
-ARG TARGETPLATFORM
-RUN echo "I'm building for $TARGETPLATFORM"
 
 # build plugins
 #RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
