@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy and build
 COPY ./src /app
 
+RUN echo "COMMIT"
+RUN echo $GIT_COMMIT
+
 # build plugins
 #RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
 #RUN dotnet build /app/Plugins/Authentication.Google -c Release /p:SourceRevisionId=$GIT_COMMIT
