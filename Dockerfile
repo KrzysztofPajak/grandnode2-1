@@ -1,3 +1,5 @@
+ARG GIT_COMMIT
+
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 LABEL stage=build-env
 WORKDIR /app
@@ -6,24 +8,24 @@ WORKDIR /app
 COPY ./src /app
 
 # build plugins
-RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=d6b3d432970c9acbc21ecd22c9f5578892385305
-RUN dotnet build /app/Plugins/Authentication.Google -c Release
-RUN dotnet build /app/Plugins/DiscountRules.Standard -c Release
-RUN dotnet build /app/Plugins/ExchangeRate.McExchange -c Release
-RUN dotnet build /app/Plugins/Payments.BrainTree -c Release
-RUN dotnet build /app/Plugins/Payments.CashOnDelivery -c Release
-RUN dotnet build /app/Plugins/Payments.PayPalStandard -c Release
-RUN dotnet build /app/Plugins/Shipping.ByWeight -c Release
-RUN dotnet build /app/Plugins/Shipping.FixedRateShipping -c Release
-RUN dotnet build /app/Plugins/Shipping.ShippingPoint -c Release
-RUN dotnet build /app/Plugins/Tax.CountryStateZip -c Release
-RUN dotnet build /app/Plugins/Tax.FixedRate -c Release
-RUN dotnet build /app/Plugins/Widgets.FacebookPixel -c Release
-RUN dotnet build /app/Plugins/Widgets.GoogleAnalytics -c Release
-RUN dotnet build /app/Plugins/Widgets.Slider -c Release
+RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
+RUN dotnet build /app/Plugins/Authentication.Google -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/DiscountRules.Standard -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/ExchangeRate.McExchange -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Payments.BrainTree -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Payments.CashOnDelivery -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Payments.PayPalStandard -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Shipping.ByWeight -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Shipping.FixedRateShipping -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Shipping.ShippingPoint -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Tax.CountryStateZip -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Tax.FixedRate -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Widgets.FacebookPixel -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Widgets.GoogleAnalytics -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Widgets.Slider -c Release /p:SourceRevisionId=$GIT_COMMIT
 
 # build Web
-RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release
+RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release -p:SourceRevisionId=$GIT_COMMIT
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
