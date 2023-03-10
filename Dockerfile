@@ -1,4 +1,5 @@
 ARG GIT_COMMIT
+ENV GIT_COMMIT ${GIT_COMMIT}
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 LABEL stage=build-env
@@ -8,7 +9,10 @@ WORKDIR /app
 COPY ./src /app
 
 RUN echo "COMMIT"
+RUN echo ${GIT_COMMIT}
+RUN echo $(GIT_COMMIT)
 RUN echo $GIT_COMMIT
+RUN echo GIT_COMMIT
 
 # build plugins
 #RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
@@ -25,10 +29,10 @@ RUN echo $GIT_COMMIT
 #RUN dotnet build /app/Plugins/Tax.FixedRate -c Release /p:SourceRevisionId=$GIT_COMMIT
 #RUN dotnet build /app/Plugins/Widgets.FacebookPixel -c Release /p:SourceRevisionId=$GIT_COMMIT
 #RUN dotnet build /app/Plugins/Widgets.GoogleAnalytics -c Release /p:SourceRevisionId=$GIT_COMMIT
-RUN dotnet build /app/Plugins/Widgets.Slider -c Release /p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet build /app/Plugins/Widgets.Slider -c Release /p:SourceRevisionId=${GIT_COMMIT}
 
 # build Web
-RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release -p:SourceRevisionId=$GIT_COMMIT
+RUN dotnet publish /app/Web/Grand.Web -c Release -o ./build/release -p:SourceRevisionId=${GIT_COMMIT}
 
 # Build runtime image
 FROM mcr.microsoft.com/dotnet/aspnet:6.0
