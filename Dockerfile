@@ -1,4 +1,8 @@
 ARG GIT_COMMIT
+ARG GIT_BRANCH
+RUN echo "COMMIT"
+RUN echo $GIT_COMMIT
+RUN echo $GIT_BRANCH
 
 FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build-env
 LABEL stage=build-env
@@ -6,12 +10,6 @@ WORKDIR /app
 
 # Copy and build
 COPY ./src /app
-
-RUN echo "COMMIT"
-RUN echo ${GIT_COMMIT}
-RUN echo $(GIT_COMMIT)
-RUN echo $GIT_COMMIT
-RUN echo GIT_COMMIT
 
 # build plugins
 #RUN dotnet build /app/Plugins/Authentication.Facebook -c Release /p:SourceRevisionId=$GIT_COMMIT 
